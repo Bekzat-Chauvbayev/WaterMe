@@ -36,9 +36,12 @@ class WorkManagerWaterRepository(context: Context) : WaterRepository {
         data.putString(WaterReminderWorker.nameKey,plantName)
 
         val workRequestBuilder = OneTimeWorkRequestBuilder<WaterReminderWorker>()
-            .setInitialDelay(duration,unit).setInputData(data.build()).build()
+            .setInitialDelay(duration,unit)
+            .setInputData(data.build())
+            .build()
 
-        workManager.enqueueUniqueWork(plantName + duration,
+        workManager.enqueueUniqueWork(
+            plantName + duration,
             ExistingWorkPolicy.REPLACE,
             workRequestBuilder)
     }
